@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table, th, td {
+            border: 1px solid;
+        }
+    </style>
+</head>
+<body>
+<p>[name]</p>
+<p>[email]</p>
+<table>
+    <thead>
+        <tr>
+            <th>phones</th>
+        </tr>
+    </thead>
+    <tbody>
+    [@foreach(phones,<tr><td>[phone]</td></tr>)]
+    </tbody>
+</table>
+</body>
+</html>
