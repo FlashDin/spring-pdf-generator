@@ -23,30 +23,49 @@ public class PdfCreator {
         // under html tag tr "(?s)<tr\\b.*?>(.*?)<\\/tr>"
         Matcher matcher = pattern.matcher(str);
         StringBuilder sb = new StringBuilder();
+        StringBuilder sb1 = new StringBuilder();
         while (matcher.find()) {
             String target = matcher.group(1);
             if (target.indexOf("@foreach") != -1) {
-                // Pattern pattern1 = Pattern.compile("\\((.*)\\)");
-                // Matcher matcher1 = pattern1.matcher(target);
-                // StringBuilder sb1 = new StringBuilder();
-                // while (matcher1.find()) {
-                //     String target1 = matcher1.group(1);
-                //     String[] target1s = target1.split(",");
-                //     List<Map<String, Object>> targetValue1 = (List<Map<String, Object>>) data.get(target1s[0]);
-                //     System.out.println(target1s[0] + target1s[1]);
-                //     targetValue1.forEach(t -> {
-                //         if (!ObjectUtils.isEmpty(targetValue1)) {
-                //             matcher1.appendReplacement(sb1, (String) t.get(target1s[1]));
-                //         }
-                //     });
-                // }
-                // System.out.println(sb1.toString());
-                // System.out.println(target);
+                Pattern pattern1 = Pattern.compile("\\((.*)\\)");
+                Matcher matcher1 = pattern1.matcher(target);
+                while (matcher1.find()) {
+                    String[] target1 = matcher1.group(1).split(",");
+                    List<Map<String, Object>> targetValue1 = (List<Map<String, Object>>) data.get(target1[0]);
+                    if (!ObjectUtils.isEmpty(targetValue1) && !targetValue1.isEmpty()) {
+                        Pattern pattern2 = Pattern.compile("\\[([^\\[.]+?)\\]");
+                        Matcher matcher2 = pattern2.matcher(target1[1]);
+                        while (matcher2.find()) {
+                            // targetValue1.forEach(t -> {
+                            //     sb1.append(matcher2.replaceFirst((String) t.get(matcher2.group(1))));
+                            // });
+                            // System.out.println("HEHE");
+                        }
+                        matcher.appendReplacement(sb, sb1.toString());
+                    }
+                }
             } else {
                 Object targetValue = data.get(target);
                 if (!ObjectUtils.isEmpty(targetValue)) {
                     matcher.appendReplacement(sb, (String) targetValue);
                 }
+            }
+        }
+        matcher.appendTail(sb);
+        HtmlConverter.convertToPdf(sb.toString(), new FileOutputStream(dest));
+    }
+
+    @SneakyThrows
+    public void createPdfFromString(String html, String dest, Map<String, Object> data) {
+        String str = html;
+        Pattern pattern = Pattern.compile("\\[(.*)\\]");
+        Matcher matcher = pattern.matcher(str);
+        StringBuilder sb = new StringBuilder();
+        while (matcher.find()) {
+            String target = matcher.group(1);
+            Object targetValue = data.get(target);
+            if (!ObjectUtils.isEmpty(targetValue)) {
+                matcher.appendReplacement(sb, (String) targetValue);
             }
         }
         matcher.appendTail(sb);
