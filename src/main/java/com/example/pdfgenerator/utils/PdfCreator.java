@@ -33,14 +33,16 @@ public class PdfCreator {
                     String[] target1 = matcher1.group(1).split(",");
                     List<Map<String, Object>> targetValue1 = (List<Map<String, Object>>) data.get(target1[0]);
                     if (!ObjectUtils.isEmpty(targetValue1) && !targetValue1.isEmpty()) {
-                        Pattern pattern2 = Pattern.compile("\\[([^\\[.]+?)\\]");
-                        Matcher matcher2 = pattern2.matcher(target1[1]);
-                        while (matcher2.find()) {
-                            // targetValue1.forEach(t -> {
-                            //     sb1.append(matcher2.replaceFirst((String) t.get(matcher2.group(1))));
-                            // });
-                            // System.out.println("HEHE");
+                        for (Map<String, Object> t : targetValue1) {
+                            String res = target1[1];
+                            Pattern pattern2 = Pattern.compile("\\[([^\\[.]+?)\\]");
+                            Matcher matcher2 = pattern2.matcher(res);
+                            while (matcher2.find()) {
+                                res = res.replaceAll("\\[(" + matcher2.group(1) + ")\\]", (String) t.get(matcher2.group(1)));
+                            }
+                            sb1.append(res);
                         }
+                        System.out.println(sb1.toString());
                         matcher.appendReplacement(sb, sb1.toString());
                     }
                 }
