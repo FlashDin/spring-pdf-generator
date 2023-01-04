@@ -23,9 +23,9 @@ public class PdfCreator {
 
     @SneakyThrows
     public void createPdf(String source, String dest, Map<String, Object> data) {
-        File file = ResourceUtils.getFile("classpath:templates/" + source);
-        String str = Files.readString(file.toPath());
-        this.createPdfFromString(str, dest, data);
+        // File file = ResourceUtils.getFile("classpath:templates/" + source);
+        // String str = Files.readString(file.toPath());
+        // this.createPdfFromString(str, dest, data);
     }
 
     @SneakyThrows
@@ -35,8 +35,8 @@ public class PdfCreator {
         // under [] "\\[([^\\[.]+?)\\]"
         // under html tag tr "(?s)<tr\\b.*?>(.*?)<\\/tr>"
         Matcher matcher = pattern.matcher(str);
-        StringBuilder sb = new StringBuilder();
-        StringBuilder sb1 = new StringBuilder();
+        StringBuffer sb = new StringBuffer();
+        StringBuffer sb1 = new StringBuffer();
         while (matcher.find()) {
             String target = matcher.group(1);
             if (target.indexOf("@foreach") != -1) {
@@ -76,8 +76,8 @@ public class PdfCreator {
         // under [] "\\[([^\\[.]+?)\\]"
         // under html tag tr "(?s)<tr\\b.*?>(.*?)<\\/tr>"
         Matcher matcher = pattern.matcher(str);
-        StringBuilder sb = new StringBuilder();
-        StringBuilder sb1 = new StringBuilder();
+        StringBuffer sb = new StringBuffer();
+        StringBuffer sb1 = new StringBuffer();
         while (matcher.find()) {
             String target = matcher.group(1);
             if (target.indexOf("@foreach") != -1) {

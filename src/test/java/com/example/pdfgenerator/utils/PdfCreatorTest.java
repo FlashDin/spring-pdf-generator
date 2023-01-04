@@ -21,7 +21,7 @@ class PdfCreatorTest {
     void testCreatePdf() {
         // Setup
         // Run the test
-        pdfCreatorUnderTest.createPdf("pdf0.html", "pdf/test0.pdf", new HashMap<>(){{
+        pdfCreatorUnderTest.createPdf("pdf0.html", "pdf/test0.pdf", new HashMap<String, Object>(){{
             put("name", "hehe");
             put("email", "hehe@gmail.com");
             put("rows", "<tr>" +
@@ -43,19 +43,19 @@ class PdfCreatorTest {
     void testCreatePdfWithForeach() {
         // Setup
         // Run the test
-        pdfCreatorUnderTest.createPdf("pdf1.html", "pdf/test1.pdf", new HashMap<>(){{
+        pdfCreatorUnderTest.createPdf("pdf1.html", "pdf/test1.pdf", new HashMap<String, Object>(){{
             put("name", "hehe");
             put("email", "hehe@gmail.com");
             List<Map<String, Object>> ls = new ArrayList<>();
-            ls.add(new HashMap<>(){{
+            ls.add(new HashMap<String, Object>(){{
                 put("phone", "0857776");
                 put("address", "pkl");
             }});
-            ls.add(new HashMap<>(){{
+            ls.add(new HashMap<String, Object>(){{
                 put("phone", "0857777");
                 put("address", "mkl");
             }});
-            ls.add(new HashMap<>(){{
+            ls.add(new HashMap<String, Object>(){{
                 put("phone", "0857778");
                 put("address", "jkl");
             }});
@@ -97,7 +97,7 @@ class PdfCreatorTest {
                 "</body>\n" +
                 "</html>",
                 "pdf/test2.pdf",
-                new HashMap<>(){{
+                new HashMap<String, Object>(){{
             put("name", "hehe");
             put("email", "hehe@gmail.com");
             put("rows", "<tr>" +

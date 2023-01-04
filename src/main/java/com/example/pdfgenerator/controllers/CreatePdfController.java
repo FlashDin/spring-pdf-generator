@@ -51,7 +51,7 @@ public class CreatePdfController {
                         "</table>\n" +
                         "</body>\n" +
                         "</html>",
-                new HashMap<>(){{
+                new HashMap<String, Object>(){{
                     put("name", "hehe");
                     put("email", "hehe@gmail.com");
                     put("rows", "<tr>" +
